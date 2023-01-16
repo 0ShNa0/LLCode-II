@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+
+struct node{ int data;
+node *next;
+    
+};
+
+node* createll(node *head,int val)
+{  struct node*temp=new node();
+ temp->data=val;
+ temp->next=NULL;
+
+    if(head==NULL)
+    {head=temp;
+    }
+    else
+    {struct node* ctr=head;
+      while(ctr->next!=NULL)  
+        ctr=ctr->next;
+        ctr->next=temp;
+    }
+   return(head);
+}
+ void display(node *n) {  
+
+    struct node *curr = n;  
+
+    if(n == NULL) {  
+        cout<<"List is empty\n";  
+        return;  
+    }  
+    cout<<"Nodes of linked list: \n";  
+    while(curr != NULL) {  
+
+        printf("%d ", curr->data);  
+        curr = curr->next;  
+    }     
+    cout<<"\n";
+}
+
+node* mergell(node *ll1,node *ll2)
+{ struct node *ll3=NULL;
+if(ll2==NULL)
+   return(ll1);
+   else if(ll1==NULL)
+   return(ll2);
+   
+   if(ll1->data<ll2->data)
+      {ll3=ll1;
+       ll3->next=mergell(ll1->next,ll2);
+      }
+    else
+    {ll3=ll2;
+      ll3->next=mergell(ll1,ll2->next);
+    }
+    
+   
+  
+   return(ll3);
+   
+}
+
+node* middlell(node *head)
+{node*fp=head,*sp=head;
+while(fp->next!=NULL)
+{fp=fp->next->next;
+ sp=sp->next;   
+}
+return(sp);    
+    
+    
+}
+
+node* mergesort(node *head)
+{node *head2=new node();
+node *mid=new node();
+if(head==NULL||head->next==NULL)
+    return(head);
+mid=middlell(head);
+head2=mid->next;
+mid->next=NULL;
+head=mergell(mergesort(head),mergesort(head2));
+
+    
+}
+
+
+int main()
+{ int x,n;
+ struct node* ll=NULL;
+  cout<<"Enter number of values \n";
+  cin>>n;
+    cout<<"Enter values";
+  for(int i=0;i<n;i++)
+  {cin>>x;
+     ll=createll(ll,x); 
+  }
+ struct node *sorted=mergesort(ll);
+ display(sorted);
+
+ 
+  return 0;
+  
+  
+}
