@@ -1,0 +1,42 @@
+struct compare
+{
+    bool operator()(node* a1, node* b1)
+    {
+        return a1->data > b1->data;
+    }
+};
+ 
+node* Merge_K_Lists(node* arr[], int k) 
+{
+   
+    priority_queue<node*, vector<node*>, compare> Queue;
+ 
+   
+    for (int i = 0; i < k; i++)
+    {
+        if (arr[i] != NULL)
+            Queue.push(arr[i]);
+     }
+      if (Queue.empty())
+        return NULL;
+   
+     node *dummy = new_Node(0);
+    node *last = dummy;
+   
+    while (!Queue.empty())
+    {
+        node* curr = Queue.top();
+        Queue.pop();
+ 
+        last->next = curr;
+        last = last->next; 
+       
+        if (curr->next != NULL)
+             
+       
+        Queue.push(curr->next);
+    }
+ 
+    
+    return dummy->next;
+}
