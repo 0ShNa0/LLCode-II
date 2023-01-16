@@ -1,0 +1,81 @@
+#include <iostream>
+
+using namespace std;
+
+struct node{ int data;
+node* next;
+};
+
+struct node* head;
+
+
+node* createll(int val)
+{  struct node*temp=new node();
+ temp->data=val;
+ temp->next=NULL;
+
+    if(head==NULL)
+    {head=temp;
+    }
+    else
+    {struct node* ctr=head;
+      while(ctr->next!=NULL)  
+        ctr=ctr->next;
+        ctr->next=temp;
+    }
+   return(head);
+}
+ void display(node *n) {  
+
+    struct node *curr = n;  
+
+    if(n == NULL) {  
+        cout<<"List is empty\n";  
+        return;  
+    }  
+    cout<<"Nodes of linked list: \n";  
+    while(curr != NULL) {  
+
+        printf("%d ", curr->data);  
+        curr = curr->next;  
+    }     
+}
+node* revlist(node *head,int k)
+{ struct node* curr=head;
+struct node *prev=NULL,*after;
+int count=0;
+
+while(curr!=NULL && count<k)
+{
+after=curr->next;
+curr->next=prev;
+prev=curr;
+curr=after;
+count++;
+} 
+ if(after!=NULL)   
+
+head->next=revlist(after,k);
+  
+return(prev);
+  
+
+}
+    
+
+int main()
+{ int x,n,m;
+ struct node* res;
+  cout<<"Enter number of values \n";
+  cin>>n;
+    cout<<"Enter values";
+  for(int i=0;i<n;i++)
+  {cin>>x;
+     res=createll(x); 
+  }
+  display(res);
+  cout<<"\n Enter fragment size for reversal";
+  cin>>m;
+struct node* ret=revlist(res,m);
+ display(ret);
+}
