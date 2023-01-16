@@ -1,0 +1,35 @@
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {ListNode* temp=head,*prev=nullptr;
+                         unordered_set<int> hs;
+                          if(head==nullptr)
+                          return(head);
+                         hs.insert(temp->val) ;
+                         while(temp)                      
+                         {  prev=temp;
+                             temp=temp->next;
+                        if(temp!=nullptr)
+                         {  if(hs.find(temp->val)!=hs.end())
+                           {
+                            prev->next=temp->next;
+                            temp=prev;
+                            
+                           }
+                           else
+                           {hs.insert(temp->val);
+
+                           }
+                         }
+                         else 
+                            break;
+                         }                       
+                                                
+                        return(head);                   
+                                                
+                                                
+                                                
+                                                
+                                                
+                                              
+    }
+};
